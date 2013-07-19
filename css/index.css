@@ -52,6 +52,9 @@ a { text-decoration: none }
 		background-color : #6d7788;
 		color: white;
 	}
+	.dark:active{
+		-webkit-transform: scale3d(0.9, 0.9, 1);
+	}
 
 
 
