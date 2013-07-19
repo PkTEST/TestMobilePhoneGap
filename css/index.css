@@ -32,10 +32,10 @@ a { text-decoration: none }
 }
 
 .button {
-	padding: 0.433em; /* 10/12 */
+	padding: 0.333em; /* 10/12 */
 	display: inline-block;
 	font-family: Helvetica, Arial, sans-serif;
-	font-size:16px;
+	font-size:1em;
 }
 .image-left {
 	background-position: left center;
@@ -57,7 +57,7 @@ a { text-decoration: none }
 
 div#top-bar {
 	background-color: #2a2e36;
-	padding: 0.625em; /* 10/16 */
+	padding: 0.325em; /* 10/16 */
 }
 
 div#header {
@@ -67,21 +67,21 @@ text-align:center;
 }
 
 body {
-	font-size: 1em; /* Prevents an navigator bug where em's scale out of proportions */
+	font-size: 2em; /* Prevents an navigator bug where em's scale out of proportions */
     background-color:#E4E4E4;
     background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
     background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
     background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-gradient(
+    background-image:-webkit-gradient
+		(
         linear,
         left top,
         left bottom,
         color-stop(0, #A7A7A7),
         color-stop(0.51, #E4E4E4)
-    );
+		);
     background-attachment:fixed;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
     height:100%;
     margin:0px;
     padding:0px;
