@@ -84,6 +84,7 @@ form#loginform label{
 	margin-bottom: 0.216em;
 }
 form input[type="text"], form input[type="password"] {
+	color : #007F7F;
 	border: 1px solid #c9cbcd;
 	padding: 0.75em;
 	outline: none;
@@ -134,7 +135,7 @@ body {
 
 /* Portrait layout (default) */
 .app {
-    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
+    /* background:url(../img/logo.png) no-repeat center top;*/ /* 170px x 200px */
     position:absolute;             /* position in the center of the screen */
     left:50%;
     top:50%;
