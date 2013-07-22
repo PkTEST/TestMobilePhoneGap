@@ -84,7 +84,7 @@ form#loginform label{
 	margin-bottom: 0.216em;
 }
 form input[type="text"], form input[type="password"] {
-	color : #007F7F;
+	-webkit-user-select: text;
 	border: 1px solid #c9cbcd;
 	padding: 0.75em;
 	outline: none;
