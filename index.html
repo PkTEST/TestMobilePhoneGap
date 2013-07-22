@@ -28,10 +28,13 @@
 		<title>Hello World</title>
  		<script>
 			document.getElementById("BtnLogIn").addEventListener("click", FuncLogin);
+			document.addEventListener("backbutton", function(e){
+				navigator.app.exitApp();
+			}, false);
             
 			function FuncLogin(e) {
 				navigator.notification.alert("Btn Login");
-			}
+			};
 		</script>
     </head>
     <body>
