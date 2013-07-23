@@ -155,13 +155,8 @@ body {
     width:100%;
 }
 
-@media only screen and (min-resolution:90dpi) {
-body {
-	font-size: 450%; /* Prevents an navigator bug where em's scale out of proportions */
-	}
-}
 
-@media only screen and (min-resolution:200dpi) {
+@media (-webkit-min-device-pixel-ratio: 1.5) and (min-resolution: 200dpi) {
 body {
 	font-size: 200%; /* Prevents an navigator bug where em's scale out of proportions */
 	}
