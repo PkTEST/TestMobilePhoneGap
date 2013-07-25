@@ -28,8 +28,9 @@
     </head>
     <body>
 		<div id="top-bar">
-			<div id="Bouton">
-				<a href="#" class="button round dark">Quitter</a>
+			<div>
+				<a href="#" class="button round dark" id="BtnQuitter">Quitter</a>
+				<!-- button type="button" class="button round dark" id="BtnQuitter">se connecter </button -->
 			</div>
 		</div>
 		<div id="header">
@@ -47,7 +48,7 @@
 						<input type="password" id="password" />
 					</p>
 					<p>
-						<button type="button" class="button round dark large" id="BtnLogIn" value="se connecter">se connecter </button>
+						<button type="button" class="button round dark large" id="BtnLogIn">se connecter </button>
 					</p>
 				</fieldset>
 			</form>
@@ -62,12 +63,18 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
  		<script type="text/javascript">
+			document.getElementById("BtnQuitter").addEventListener("click", FuncQuitter);
 			document.getElementById("BtnLogIn").addEventListener("click", FuncLogin);
+			
 			document.addEventListener("backbutton", function(e){
 				localStorage.clear();
 				navigator.app.exitApp();
 			}, false);
             
+			function FuncQuitter(e) {
+				localStorage.clear();
+				navigator.app.exitApp();
+			};
 			function FuncLogin(e) {
 				alert("heu ! on fait comment maintenant !");
 			};
