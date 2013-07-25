@@ -36,8 +36,7 @@ p{
 }
 
 fieldset {
-
-	/* border: none; */				/* fieldset formulaire */
+	border: none;				/* fieldset formulaire */
 }
 
 .round {
@@ -106,19 +105,18 @@ form input[type="text"], form input[type="password"] {
 	width: 90%;
 }
 
-
 div#top-bar {
 	background-color: #2a2e36;
 	padding: 0.325em; /* 10/16 */
 }
 
 div#header {
-border:0px;
-background-color: white;
-padding: 1.325em; 
-text-align:center;
-background:url(../img/ltb_LogoGrand.png) no-repeat center center;
-background-size: auto 60%;
+	border:0px;
+	padding: 1.325em; 
+	text-align:center;
+	background:url(../img/ltb_LogoGrand.png) no-repeat center center;
+	background-color: white;	/* après le logo*/
+	background-size: auto 60%;
 }
 @media screen and (min-device-width: 320px)
 {
@@ -128,10 +126,8 @@ div#header {
 }
 
 div#content {
-	
 	border: 1px solid #eeeeee;
 }
-
 
 body {
 	font-size: 100%; /* Prevents an navigator bug where em's scale out of proportions */

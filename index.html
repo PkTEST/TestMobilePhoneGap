@@ -39,10 +39,12 @@
 			<form action="#" id="loginform">
 				<fieldset>
 					<p>
-						<label for="login">IDENTIFIANT</label><input type="text" id="login"  autofocus/>
+						<label for="login">IDENTIFIANT</label>
+						<input type="text" id="login" autofocus/>
 					</p>
 					<p>
-						<label for="password">MOT DE PASSE</label><input type="password" id="password" />
+						<label for="password">MOT DE PASSE</label>
+						<input type="password" id="password" />
 					</p>
 					<p>
 						<button type="button" class="button round dark large" id="BtnLogIn" value="se connecter">se connecter </button>
@@ -54,7 +56,7 @@
             <h1>APACHE CORDOVA</h1>
             <div id="deviceready" class="blink">
                 <p class="event listening">Détection de votre appareil</p>
-                <p class="event received">Votre appareil est Prêt</p>
+                <p class="event received">Votre appareil est prêt</p>
             </div>
         </div>
         <script type="text/javascript" src="cordova.js"></script>
@@ -62,13 +64,12 @@
  		<script type="text/javascript">
 			document.getElementById("BtnLogIn").addEventListener("click", FuncLogin);
 			document.addEventListener("backbutton", function(e){
+				localStorage.clear();
 				navigator.app.exitApp();
 			}, false);
             
 			function FuncLogin(e) {
-				alert("Btn Login");
-				localStorage.clear();
-				navigator.app.exitApp();
+				alert("heu ! on fait comment maintenant !");
 			};
 		</script>
         <script type="text/javascript">
