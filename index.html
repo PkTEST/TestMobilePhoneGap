@@ -25,16 +25,6 @@
         <!-- StyleSheet -->
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>Les Taxis Bleus</title>
- 		<script>
-			document.getElementById("BtnLogIn").addEventListener("click", FuncLogin);
-			document.addEventListener("backbutton", function(e){
-				navigator.app.exitApp();
-			}, false);
-            
-			function FuncLogin(e) {
-				alert("Btn Login");
-			};
-		</script>
     </head>
     <body>
 		<div id="top-bar">
@@ -54,7 +44,9 @@
 					<p>
 						<label for="password">MOT DE PASSE</label><input type="password" id="password" />
 					</p>
-					<input type="button" class="button round dark large" id="BtnLogIn" value="se connecter" />
+					<p>
+						<button type="button" class="button round dark large" id="BtnLogIn" value="se connecter">se connecter </button>
+					</p>
 				</fieldset>
 			</form>
 		</div>
@@ -67,8 +59,20 @@
         </div>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
+ 		<script type="text/javascript">
+			document.getElementById("BtnLogIn").addEventListener("click", FuncLogin);
+			document.addEventListener("backbutton", function(e){
+				navigator.app.exitApp();
+			}, false);
+            
+			function FuncLogin(e) {
+				alert("Btn Login");
+				localStorage.clear();
+				navigator.app.exitApp();
+			};
+		</script>
         <script type="text/javascript">
-					app.initialize();
+					navigator.app.exitApp();
         </script>
     </body>
 </html>
