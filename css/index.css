@@ -33,6 +33,7 @@ textarea
 
 p{
  margin-bottom: 1.333em;
+ 
 }
 
 fieldset {
@@ -50,6 +51,7 @@ fieldset {
 	display: inline-block;
 	font-family: Helvetica, Arial, sans-serif;
 	font-size:1em;
+	text-align: center;
 }
 
 .large{
@@ -64,7 +66,17 @@ fieldset {
 	}
 
 .dark{
-	background-color : #4f5561;
+	background-color : #7f7591;
+	background: #7f7591;
+     background: -webkit-linear-gradient( #7f7591, #3C3C4C);
+     background:    -moz-linear-gradient( #7f7591, #3C3C4C);
+     background:     -ms-linear-gradient( #7f7591, #3C3C4C);
+     background:      -o-linear-gradient( #7f7591, #3C3C4C);
+     background:         linear-gradient( #7f7591, #3C3C4C);
+	 text-shadow: 0px 1px 0px white;
+	 text-shadow: 0px 1px 0px rgba( 255, 255, 255, 0.2);
+	 box-shadow: 0 0 5px rgba( 0, 0, 0, 0.5),
+                 0 -1px 0 rgba( 255, 255, 255, 0.4);
 	color: white;
 	}
 	.dark:hover{
@@ -96,6 +108,7 @@ form#loginform label{
 	text-transform: uppercase;
 	color: #2a3e36;
 	margin-bottom: 0.215em;
+	text-shadow: 0px 1px 0px rgba( 255, 255, 255, 0.8);	/* doublon blanc sous le texte */
 }
 form input[type="text"], form input[type="password"] {
 	-webkit-user-select: text;	/* autofocus */
@@ -130,6 +143,7 @@ div#content {
 }
 
 body {
+
 	font-size: 100%; /* Prevents an navigator bug where em's scale out of proportions */
     background-color:#F0F0F0;
     background-image:linear-gradient(top, #FFFFFF 0%, #F0F0F0 51%);
