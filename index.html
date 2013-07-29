@@ -33,16 +33,14 @@
         <title>Les Taxis Bleus</title>
     </head>
     <body>
-		<div data-role="page" id="page" data-theme="c">
-			<div data-role="header" style="background-color:#FFFFFF; background-image:none; height:60px">
-				<!-- h4>Identification</h4 -->
-				<img id="LogoBandeauLTB" src="img/ltb_LogoGrand.png"/>
-				<!-- a href="#" class ="stretch image-center"><img src="img/ltb_LogoGrand.png"/></a -->
+		<div data-role="page" id="PageLogin" data-theme="d">
+			<div data-role="header">
+				<h1>Identification</h1>
 			</div>
-			<!-- div style="background-color:#FFFFFF; background-image:none; height:30px">
-				<img id="LogoBandeauLTB" src="img/ltb_LogoGrand.png"/>
-			</div -->
 			<div data-role="content">
+				<div style="background-color:#FFFFFF; background-image:none; height:auto">
+					<img id="LogoBandeauLTB" src="img/ltb_LogoGrand.png"/>
+				</div>
 				<form action="#" id="loginform">
 					<fieldset>
 						<p>
@@ -58,7 +56,7 @@
 							<!-- a href="#" class="button round dark large" id="BtnLogIn">se connecter</a -->
 						</p>
 						<p>
-							<a href="" data-role="button" id="BtnLogIn">se connecter</a>
+							<a href="" data-role="button" data-theme="b" id="BtnLogIn">se connecter</a>
 						</p>
 					</fieldset>
 				</form>
@@ -94,7 +92,11 @@
 			};
 		</script>
         <script type="text/javascript">
+			$("#BtnLogIn").bind("click", function(events) {
+				alert("heu ! on fait comment maintenant !");
+			});
 			app.initialize();
+			
         </script>
     </body>
 </html>
