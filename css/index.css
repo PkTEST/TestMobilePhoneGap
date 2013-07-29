@@ -18,9 +18,10 @@
  */
 a { text-decoration: none }
 a img {border: none}
+a button{border:none; text-decoration: none; }
 
 * {
-font-size: 1em;
+	font-size: 1em;
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent WebKit from resizing text to fit */
     -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
@@ -50,9 +51,12 @@ fieldset {
 	padding: 0.433em; /* 10/12 */
 	display: inline-block;
 	font-family: Helvetica, Arial, sans-serif;
-	font-size:1em;
+	font-size:1.2em;
 	text-align: center;
 }
+	.dark:clicked{
+		-webkit-transform: scale3d(0.9, 0.9, 1);
+	}
 
 .large{
 	width:99%;
@@ -73,8 +77,7 @@ fieldset {
      background:     -ms-linear-gradient( #7f7591, #3C3C4C);
      background:      -o-linear-gradient( #7f7591, #3C3C4C);
      background:         linear-gradient( #7f7591, #3C3C4C);
-	 text-shadow: 0px 1px 0px white;
-	 text-shadow: 0px 1px 0px rgba( 255, 255, 255, 0.2);
+	 text-shadow: 0px 1px 0px rgba( 255, 255, 255, 0.4);
 	 box-shadow: 0 0 5px rgba( 0, 0, 0, 0.5),
                  0 -1px 0 rgba( 255, 255, 255, 0.4);
 	color: white;
@@ -82,9 +85,11 @@ fieldset {
 	.dark:hover{
 		background-color : #6d7788;
 		color: white;
+	}
+	.dark:active{
 		-webkit-transform: scale3d(0.9, 0.9, 1);
 	}
-	}
+	
 
 .stretch {
 	width:100%;
