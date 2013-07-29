@@ -34,7 +34,7 @@
     </head>
     <body>
 		<div data-role="page" id="PageLogin" data-theme="d">
-			<div data-role="header">
+			<div data-role="header" data-theme="c">
 				<h1>Identification</h1>
 			</div>
 			<div data-role="content">
@@ -45,24 +45,25 @@
 					<fieldset>
 						<p>
 							<label for="login">IDENTIFIANT</label>
-							<input type="text" id="login" autofocus/>
+							<input required="true" type="text" id="login" autofocus/>
 						</p>
 						<p>
 							<label for="password">MOT DE PASSE</label>
-							<input type="password" id="password" />
+							<input required="true" type="password" id="password" />
 						</p>
 						<p>
 							<!-- button type="button" id="BtnLogIn">se connecter </button -->
 							<!-- a href="#" class="button round dark large" id="BtnLogIn">se connecter</a -->
 						</p>
 						<p>
-							<a href="" data-role="button" data-theme="b" id="BtnLogIn">se connecter</a>
+							<input id="loginBtn" type="submit" value="Se connecter" id="BtnLogIn" data-theme="b">
+							<!-- a href="" type="submit" data-role="button" data-theme="b" id="BtnLogIn">se connecter</a -->
 						</p>
 					</fieldset>
 				</form>
 			</div>
-			<div data-role="footer" data-position="fixed">
-				<h4>My Footer</h4>
+			<div data-role="footer" data-theme="c" data-position="fixed">
+				<h4>Bienvenue</h4>
 			</div>
 			<div class="app">
 				<h1>APACHE CORDOVA</h1>
@@ -76,7 +77,6 @@
         <script type="text/javascript" src="js/index.js"></script>
  		<script type="text/javascript">
 			document.getElementById("BtnQuitter").addEventListener("click", FuncQuitter);
-			document.getElementById("BtnLogIn").addEventListener("click", FuncLogin);
 			
 			document.addEventListener("backbutton", function(e){
 				localStorage.clear();
@@ -87,14 +87,16 @@
 				localStorage.clear();
 				navigator.app.exitApp();
 			};
-			function FuncLogin(e) {
-				alert("heu ! on fait comment maintenant !");
-			};
 		</script>
-        <script type="text/javascript">
-			$("#BtnLogIn").bind("click", function(events) {
-				alert("heu ! on fait comment maintenant !");
-			});
+        <script  type="text/javascript">
+			$(function() {
+				$('#BtnLogIn').click(
+									function(events) {
+										events.preventDefault();
+										alert("heu ! on fait comment maintenant !");
+										}
+									);
+						 });
 			app.initialize();
 			
         </script>
