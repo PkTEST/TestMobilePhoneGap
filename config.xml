@@ -26,5 +26,29 @@
 	<feature name="http://api.phonegap.com/1.0/network" />
 	<feature name="http://api.phonegap.com/1.0/notification" />
 	<feature name="http://api.phonegap.com/1.0/device" />
-		
+	
+	<!-- ICONE DEFAULT -->
+	<icon src="icons/icon.png" />
+	<!-- IOS -->
+	<icon src="icons/ios/icon-57.png" gap:platform="ios" width="57" height="57" />
+	<icon src="icons/ios/icon-72.png" gap:platform="ios" width="72" height="72" />
+	<icon src="icons/ios/Icon_at_2x(144).png" gap:platform="ios" width="114" height="114" />
+		<!-- retina iPad support: PhoneGap 2.5.0+ only -->
+	<icon src="icons/ios/icon-72_at_2x.png" gap:platform="ios" width="144" height="144" />
+	<!-- ANDROID -->
+	<icon src="icons/android/Icon-48.png" gap:platform="android" gap:density="ldpi" />
+	<icon src="icons/android/Icon-72.png" gap:platform="android" gap:density="mdpi" />
+	<icon src="icons/android/Icon-96.png" gap:platform="android" gap:density="hdpi" />
+	<icon src="icons/android/Icon-144.png" gap:platform="android" gap:density="xhdpi" />
+	<!-- BLACKBERRY -->
+	 <!-- icon src="icons/blackberry/icon.png" gap:platform="blackberry" / -->
+	 <!-- icon src="icons/blackberry/icon_hover.png" gap:platform="blackberry" gap:state="hover"/ -->
+	<!-- WINDOWS PHONE -->
+	 <!-- icon src="icons/winphone/icon.png" gap:platform="winphone" / -->
+	 <!-- icon src="icons/winphone/tileicon.png" gap:platform="winphone" gap:role="background" / -->
+	<!-- WEBOS -->
+	 <!-- icon src="icons/webos/icon.png" gap:platform="webos" / -->
+	 <!-- icon src="icons/webos/miniicon.png" gap:platform="webos" gap:role="mini" / -->
+
+
 </widget>
