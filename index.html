@@ -61,17 +61,22 @@
 						</p>
 					</fieldset>
 				</form>
+				<div id="LoginWait" class="blink">
+					<div class="event listening">
+						<h3 style = "text-align: center;">Identification en cours...</h3>
+					</div>
+				</div>
 			</div>
 			<div data-role="footer" data-theme="c" data-position="fixed">
 				<h4>Bienvenue</h4>
 			</div>
-			<div class="app">
+			<!-- div class="app">
 				<h1>APACHE CORDOVA</h1>
 				<div id="deviceready" class="blink">
 					<p class="event listening">Détection de votre appareil</p>
 					<p class="event received">Votre appareil est prêt</p>
 				</div>
-			</div>
+			</div -->
 		</div>
 		<script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
@@ -90,19 +95,44 @@
 		</script -->
         <script type="text/javascript" charset="utf-8">
 			
-			$('#BtnLogIn').bind("click", function(events) {
+			$('#LoginWait').hide();
+			/* $('#BtnLogIn').bind("click", function(events) { */
+			$('#BtnLogIn').click(function(e) {
+					/* e.preventDefault(); */
 					var identifiant = $('#login').val();
 					var password = $('#password').val();
-					if (!identifiant) { alert('Veuillez saisir votre identifiant'); return false; }
-					if (!password) { alert('Veuillez saisir votre mot de passe'); return false; }
-					alert("heu ! on fait comment maintenant !");
+					if (!identifiant) { alert("Veuillez saisir votre identifiant"); return false; }
+					if (!password) { alert("Veuillez saisir votre mot de passe"); return false; }
+					$('#BtnLogIn').hide(400);
+					/* alert("heu ! on fait comment maintenant !"); */
+					try {
+						$('#LoginWait').show(400);
+					    $.ajax({ url: 'http://HHHHHecho.jsontest.com/key/value/autre/biloute',
+						     type: 'post',
+							 dataType: 'json',
+							 timeout: 5000,
+					         data: $('#loginform').serialize(),
+							 success: function(data) { alert("Logged in"); $('#BtnLogIn').show(); },
+							 error: function(xhr, textStatus, thrownError) {
+									if(textStatus==="timeout") { 
+											$('#LoginWait').hide();
+											alert("Impossible de se connecter. Vérifier votre connexion DATA."); //Handle the timeout
+											$('#BtnLogIn').show(); 
+											}
+									  else {
+										alert(xhr.responseText);
+										$('#BtnLogIn').show(); $('#LoginWait').hide();
+										}
+									}
+							});
+						}
+					catch(ex) {
+							  alert("Impossible de joindre le serveur");
+							  $('#LoginWait').hide();
+							  }
 					/* $('#BtnLogIn').hide(); */
 					});
-			$('#BtnLogIn').click(function(e) {
-									e.preventDefault();
-									alert("heu ! on fait comment maintenant !");
-									}
-								);
+			
 			app.initialize();
 
         </script>
