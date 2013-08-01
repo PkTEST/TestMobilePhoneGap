@@ -1,22 +1,4 @@
 <!DOCTYPE html>
-<!--
-       Licensed to the Apache Software Foundation (ASF) under one
-       or more contributor license agreements.  See the NOTICE file
-       distributed with this work for additional information
-       regarding copyright ownership.  The ASF licenses this file
-       to you under the Apache License, Version 2.0 (the
-       "License"); you may not use this file except in compliance
-       with the License.  You may obtain a copy of the License at
-
-         http://www.apache.org/licenses/LICENSE-2.0
-
-       Unless required by applicable law or agreed to in writing,
-       software distributed under the License is distributed on an
-       "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-       KIND, either express or implied.  See the License for the
-       specific language governing permissions and limitations
-       under the License.
--->
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -60,7 +42,6 @@
 							<a href="" type="submit" data-role="button" data-theme="b" id="BtnLogIn">Se connecter</a>
 							<a href="#dialogPage" data-rel="dialog" data-role="button">Open dialog</a>
 						</p>
-						 
 					</fieldset>
 				</form>
 				<div id="LoginWait" class="blink">
@@ -81,14 +62,15 @@
 			</div -->
 		</div>
 		
+
 		<div data-role="page" id="dialogPage">
-<div data-role="header">
-<h2>Dialog</h2>
-</div>
-<div data-role="content">
-<p>I am a dialog</p>
-</div>
-</div>
+			<div data-role="header">
+			<h2>Dialog</h2>
+			</div>
+			<div data-role="content">
+			<p>I am a dialog</p>
+			</div>
+		</div>
 
 		
 		<script type="text/javascript" src="cordova.js"></script>
@@ -109,51 +91,60 @@
         <script type="text/javascript" charset="utf-8">
 			
 			$('#LoginWait').hide();
-			/* $('#BtnLogIn').bind("click", function(events) { */
+			
 			$('#BtnLogIn').click(function(e) {
 					/* e.preventDefault(); */
 					var identifiant = $('#login').val();
 					var password = $('#password').val();
 					if (!identifiant) { alert("Veuillez saisir votre identifiant"); return false; }
 					if (!password) { alert("Veuillez saisir votre mot de passe"); return false; }
-					$('#BtnLogIn').hide(200);
+					$('#BtnLogIn').hide();
 					/* alert("heu ! on fait comment maintenant !"); */
 					try {
-						$('#LoginWait').show(200);
+						/* $('#LoginWait').show(200); */
 						/* $.mobile.loading('show', {text: "Identification en cours..." }); */
 						$.mobile.showPageLoadingMsg("b", "Identification en cours...", false);
-					    $.ajax({ url: 'http://HHHHHecho.jsontest.com/key/value/autre/biloute',
-						     type: 'post',
-							 dataType: 'json',
-							 timeout: 6000,
-					         data: $('#loginform').serialize(),
-							 success: function(data) { alert("Logged in"); $('#BtnLogIn').show(); },
-							 error: function(xhr, textStatus, thrownError) {
-									if(textStatus=="timeout") { 
-										
-										/* $.mobile.changePage('#dialogPage', {transition: "slideup"});
-										return true; */
-											$.mobile.loading('hide');
+						/* ATTENTION IL EST ASYNCHRONE */
+					    $.ajax({url: 'http://HHHHHecho.jsontest.com/key/value/autre/biloute',
+								type: 'post',
+								dataType: 'json',
+								timeout: 6000,
+								data: $('#loginform').serialize(),
+								success: function(data) {
 											$.mobile.hidePageLoadingMsg();
-											$('#LoginWait').hide();
-											alert("Impossible de se connecter. Vérifier votre connexion internet."); //Handle the timeout
-											$('#BtnLogIn').show(); 
+											alert("Logged in");
+											$('#BtnLogIn').show();
+											/* $.mobile.changePage('#dialogPage', {transition: "slideup"});
+											return true; */											
+											},
+								error: function(xhr, textStatus, thrownError) {
+											if(textStatus=="timeout") { 
+												/* $.mobile.loading('hide'); */
+												$.mobile.hidePageLoadingMsg();
+												/* $('#LoginWait').hide(); */
+												alert("Impossible de se connecter. Vérifier votre connexion internet."); //Handle the timeout
+												$('#BtnLogIn').show(); 
+												}
+											else {
+												/* $.mobile.loading('hide'); */
+												$.mobile.hidePageLoadingMsg();
+												/* $('#LoginWait').hide(); */
+												alert(textStatus);
+												if (xhr.responseText) { alert(xhr.responseText); }
+												if (thrownError) { alert(thrownError); }
+												$('#BtnLogIn').show();
+												}
 											}
-									  else {
-										$.mobile.hidePageLoadingMsg();
-										alert(xhr.responseText);
-										$('#BtnLogIn').show(); $('#LoginWait').hide();
-										}
-									}
-							});
+								});
 						}
-					catch(ex) {
-							  $('#LoginWait').hide();
-							  $.mobile.loading('hide');
-							  $.mobile.hidePageLoadingMsg();
-							  alert("Impossible de joindre le serveur. Vérifier votre connexion internet.");
-							  };
-					$('#BtnLogIn').show();
+					catch(err) {
+								/* $.mobile.loading('hide'); */
+								$.mobile.hidePageLoadingMsg();
+								/* $('#LoginWait').hide(); */
+								alert("Impossible de joindre le serveur. Vérifier votre connexion internet.");
+								$('#BtnLogIn').show();
+							   }
+					return false;
 					});
 			
 			app.initialize();
