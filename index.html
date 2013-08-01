@@ -44,11 +44,11 @@
 					<fieldset>
 						<p>
 							<label for="login">IDENTIFIANT</label>
-							<input required="true" type="text" id="login" autofocus/>
+							<input required="true" type="text" id="login" data-clear-btn="true" autofocus/>
 						</p>
 						<p>
 							<label for="password">MOT DE PASSE</label>
-							<input required="true" type="password" id="password" />
+							<input required="true" type="password" id="password" data-clear-btn="true" />
 						</p>
 						<p>
 							<!-- button type="button" id="BtnLogIn">se connecter </button -->
@@ -57,8 +57,10 @@
 						<p>
 							<!-- button id="loginBtn" id="BtnLogIn" data-theme="b">Se connecter</button -->
 							<!-- celui la marche -->
-							<a href="" type="submit" data-role="button" data-theme="b" id="BtnLogIn">se connecter</a>
+							<a href="" type="submit" data-role="button" data-theme="b" id="BtnLogIn">Se connecter</a>
+							<a href="#dialogPage" data-rel="dialog" data-role="button">Open dialog</a>
 						</p>
+						 
 					</fieldset>
 				</form>
 				<div id="LoginWait" class="blink">
@@ -78,6 +80,17 @@
 				</div>
 			</div -->
 		</div>
+		
+		<div data-role="page" id="dialogPage">
+<div data-role="header">
+<h2>Dialog</h2>
+</div>
+<div data-role="content">
+<p>I am a dialog</p>
+</div>
+</div>
+
+		
 		<script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
  		<!-- script type="text/javascript">
@@ -103,23 +116,31 @@
 					var password = $('#password').val();
 					if (!identifiant) { alert("Veuillez saisir votre identifiant"); return false; }
 					if (!password) { alert("Veuillez saisir votre mot de passe"); return false; }
-					$('#BtnLogIn').hide(400);
+					$('#BtnLogIn').hide(200);
 					/* alert("heu ! on fait comment maintenant !"); */
 					try {
-						$('#LoginWait').show(400);
+						$('#LoginWait').show(200);
+						/* $.mobile.loading('show', {text: "Identification en cours..." }); */
+						$.mobile.showPageLoadingMsg("b", "Identification en cours...", false);
 					    $.ajax({ url: 'http://HHHHHecho.jsontest.com/key/value/autre/biloute',
 						     type: 'post',
 							 dataType: 'json',
-							 timeout: 5000,
+							 timeout: 6000,
 					         data: $('#loginform').serialize(),
 							 success: function(data) { alert("Logged in"); $('#BtnLogIn').show(); },
 							 error: function(xhr, textStatus, thrownError) {
-									if(textStatus==="timeout") { 
+									if(textStatus=="timeout") { 
+										
+										/* $.mobile.changePage('#dialogPage', {transition: "slideup"});
+										return true; */
+											$.mobile.loading('hide');
+											$.mobile.hidePageLoadingMsg();
 											$('#LoginWait').hide();
-											alert("Impossible de se connecter. Vérifier votre connexion DATA."); //Handle the timeout
+											alert("Impossible de se connecter. Vérifier votre connexion internet."); //Handle the timeout
 											$('#BtnLogIn').show(); 
 											}
 									  else {
+										$.mobile.hidePageLoadingMsg();
 										alert(xhr.responseText);
 										$('#BtnLogIn').show(); $('#LoginWait').hide();
 										}
@@ -129,6 +150,8 @@
 					catch(ex) {
 							  alert("Impossible de joindre le serveur");
 							  $('#LoginWait').hide();
+							  $.mobile.loading('hide');
+							  $.mobile.hidePageLoadingMsg();
 							  }
 					/* $('#BtnLogIn').hide(); */
 					});
