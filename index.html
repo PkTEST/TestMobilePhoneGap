@@ -105,20 +105,22 @@
 						/* $.mobile.loading('show', {text: "Identification en cours..." }); */
 						$.mobile.showPageLoadingMsg("b", "Identification en cours...", false);
 						/* ATTENTION IL EST ASYNCHRONE */
-					    $.ajax({url: 'http://HHHHHecho.jsontest.com/key/value/autre/biloute',
-								type: 'post',
-								dataType: 'json',
+					    /* $.ajax({url: 'http://echo.jsontest.com/key/value/one/two', */
+						$.ajax({url: 'http://www.blogoola.com/data/destinations.json',
+								async: true,
 								timeout: 6000,
-								data: $('#loginform').serialize(),
+								/* type: 'GET', */
+								dataType: 'jsonp',
+								/* data: $('#loginform').serialize(), */
 								success: function(data) {
 											$.mobile.hidePageLoadingMsg();
 											alert("Logged in");
 											$('#BtnLogIn').show();
 											/* $.mobile.changePage('#dialogPage', {transition: "slideup"});
-											return true; */											
+											return true; */	
 											},
 								error: function(xhr, textStatus, thrownError) {
-											if(textStatus=="timeout") { 
+											if (textStatus=="timeout") { 
 												/* $.mobile.loading('hide'); */
 												$.mobile.hidePageLoadingMsg();
 												/* $('#LoginWait').hide(); */
