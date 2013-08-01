@@ -148,12 +148,12 @@
 							});
 						}
 					catch(ex) {
-							  alert("Impossible de joindre le serveur");
 							  $('#LoginWait').hide();
 							  $.mobile.loading('hide');
 							  $.mobile.hidePageLoadingMsg();
+							  alert("Impossible de joindre le serveur. Vérifier votre connexion internet.");
 							  }
-					/* $('#BtnLogIn').hide(); */
+					$('#BtnLogIn').show();
 					});
 			
 			app.initialize();
