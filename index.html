@@ -93,9 +93,9 @@
 				{
 				$.mobile.hidePageLoadingMsg();
 				alert("WS_callback_ok");
-			//	if (soapResponse.xml) alert(soapResponse.xml); // IE
-			//	else // MOZ
-			//		alert((new XMLSerializer()).serializeToString(soapResponse)); //print SOAP Response
+			    if (soapResponse.xml) alert(soapResponse.xml); // IE
+			   else // MOZ
+			 		alert((new XMLSerializer()).serializeToString(soapResponse)); //print SOAP Response
 				//print Object result
 				/* alert("Author : "+r.Author+"\nSOA_For_Virtuemart_Version : "+r.SOA_For_Virtuemart_Version+
 								"\nVirtuemart_Version : "+r.Virtuemart_Version+"\nDatabase_Version : "+r.Database_Version);
