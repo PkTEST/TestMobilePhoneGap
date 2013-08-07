@@ -5,10 +5,11 @@
         <!-- meta name="format-detection" content="telephone=no" / -->
         <!-- meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" / -->
         <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
-		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+		<link rel="stylesheet" http-equiv="Content-Style-Type" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
 		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>       
-	    <!-- StyleSheet -->
+		<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+		<script src="jslib/soapclient.js"></script>
+		<!-- StyleSheet -->
 		<link rel="stylesheet" type="text/css" href="css/index.css"/>
 		
         <title>Les Taxis Bleus</title>
@@ -33,22 +34,17 @@
 							<input required="true" type="password" id="password" data-clear-btn="true" />
 						</p>
 						<p>
-							<!-- button type="button" id="BtnLogIn">se connecter </button -->
-							<!-- a href="#" class="button round dark large" id="BtnLogIn">se connecter</a -->
-						</p>
-						<p>
-							<!-- button id="loginBtn" id="BtnLogIn" data-theme="b">Se connecter</button -->
 							<!-- celui la marche -->
 							<a href="" type="submit" data-role="button" data-theme="b" id="BtnLogIn">Se connecter</a>
-							<a href="#dialogPage" data-rel="dialog" data-role="button">Open dialog</a>
+							<a href="#dialogPage" data-rel="dialog" data-role="button">Open test dialog</a>
 						</p>
 					</fieldset>
 				</form>
-				<div id="LoginWait" class="blink">
+				<!-- div id="LoginWait" class="blink">
 					<div class="event listening">
 						<h3 style = "text-align: center;">Identification en cours...</h3>
 					</div>
-				</div>
+				</div -->
 			</div>
 			<div data-role="footer" data-theme="c" data-position="fixed">
 				<h4>Bienvenue</h4>
@@ -90,57 +86,115 @@
 		</script -->
         <script type="text/javascript" charset="utf-8">
 			
-			$('#LoginWait').hide();
+			/* $('#LoginWait').hide(); */
+			app.initialize();
 			
+			function WS_callback(r, soapResponse)
+				{
+				$.mobile.hidePageLoadingMsg();
+				alert("WS_callback_ok");
+			//	if (soapResponse.xml) alert(soapResponse.xml); // IE
+			//	else // MOZ
+			//		alert((new XMLSerializer()).serializeToString(soapResponse)); //print SOAP Response
+				//print Object result
+				/* alert("Author : "+r.Author+"\nSOA_For_Virtuemart_Version : "+r.SOA_For_Virtuemart_Version+
+								"\nVirtuemart_Version : "+r.Virtuemart_Version+"\nDatabase_Version : "+r.Database_Version);
+				*/
+				}
+				
 			$('#BtnLogIn').click(function(e) {
-					/* e.preventDefault(); */
+					e.preventDefault();
 					var identifiant = $('#login').val();
-					var password = $('#password').val();
-					if (!identifiant) { alert("Veuillez saisir votre identifiant"); return false; }
-					if (!password) { alert("Veuillez saisir votre mot de passe"); return false; }
+					var password    = $('#password').val();
+					if (!identifiant) { alert("Veuillez saisir votre identifiant");  return false; }
+					if (!password)    { alert("Veuillez saisir votre mot de passe"); return false; }
+					
+					/* var soapHelloWorld = '<?xml version="1.0" encoding="utf-8"?> \
+										 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> \
+											<soap:Body> \
+												<ObtenirAliasPayboxUtilisateurMobilePhone xmlns="http://taxis-bleus.org/"> \
+													<IdtUtilisateur>2457</IdtUtilisateur> \
+													<AdresseEmail>dfgdg@free.fr</AdresseEmail> \
+												</ObtenirAliasPayboxUtilisateurMobilePhone> \
+											</soap:Body> \
+										 </soap:Envelope>';
+					*/
+										 
+					var soapHelloWorld = '<?xml version="1.0" encoding="utf-8"?> \
+										 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope"> \
+											<soap12:Body> \
+												<ObtenirAliasPayboxUtilisateurMobilePhone xmlns="http://taxis-bleus.org/"> \
+													<IdtUtilisateur>2457</IdtUtilisateur> \
+													<AdresseEmail>dfgdg@free.fr</AdresseEmail> \
+												</ObtenirAliasPayboxUtilisateurMobilePhone> \
+											</soap12:Body> \
+										 </soap12:Envelope>';
+					
 					$('#BtnLogIn').hide();
-					/* alert("heu ! on fait comment maintenant !"); */
+					
+					/* alert("heu ! on fait comment maintenant avec ces foutus WebService en XML!"); */
 					try {
-						/* $('#LoginWait').show(200); */
+						var urlWS_LTB = "http://81.255.62.115/TaxisBleusTestWS/Nokia/taxisBleusWebServices.asmx";
+						/* var urlWS_LTB = "http://192.168.250.3/TaxisBleusTestWS/Nokia/taxisBleusWebServices.asmx"; */
+						var WSParametre = new SOAPClientParameters();
+						
+						
+						WSParametre.add('IdtUtilisateur', '130');
+						WSParametre.add('AdresseEmail',   'toto@free.fr');
+						$.mobile.showPageLoadingMsg("b", "Identification en cours...", false); 
+						var rep = SOAPClient.invoke(urlWS_LTB, "ObtenirAliasPayboxUtilisateurMobilePhone", WSParametre, true, WS_callback);
+						
+						/*
+						urlWS_LTB = "http://www.virtuemart-datamanager.com/administrator/components/com_vm_soa/services/VM_UsersWSDL.php";
+						WSParametre.add('login', 'admin');
+						WSParametre.add('password', 'biloute');
+						var rep = SOAPClient.invoke(urlWS_LTB, "GetVersions", WSParametre, true, WS_callback);
+						*/
+						
+						return true;
+					
+					/* $('#LoginWait').show(200); */
 						/* $.mobile.loading('show', {text: "Identification en cours..." }); */
-						$.mobile.showPageLoadingMsg("b", "Identification en cours...", false);
 						/* ATTENTION IL EST ASYNCHRONE */
 					    /* $.ajax({url: 'http://echo.jsontest.com/key/value/one/two', */
-						$.ajax({url: 'http://www.blogoola.com/data/destinations.json',
-								async: true,
-								timeout: 6000,
-								/* type: 'GET', */
-								dataType: 'jsonp',
-								/* data: $('#loginform').serialize(), */
-								success: function(data) {
-											$.mobile.hidePageLoadingMsg();
-											alert("Logged in");
-											$('#BtnLogIn').show();
-											/* $.mobile.changePage('#dialogPage', {transition: "slideup"});
-											return true; */	
-											},
-								error: function(xhr, textStatus, thrownError) {
-											if (textStatus=="timeout") { 
-												/* $.mobile.loading('hide'); */
-												$.mobile.hidePageLoadingMsg();
-												/* $('#LoginWait').hide(); */
-												alert("Impossible de se connecter. Vérifier votre connexion internet."); //Handle the timeout
-												$('#BtnLogIn').show(); 
-												}
-											else {
-												/* $.mobile.loading('hide'); */
-												$.mobile.hidePageLoadingMsg();
-												/* $('#LoginWait').hide(); */
-												alert(textStatus);
-												if (xhr.responseText) { alert(xhr.responseText); }
-												if (thrownError) { alert(thrownError); }
+						$.ajax({
+								type       : "POST",
+						        url        : urlWS_LTB,
+								/* async   : true, */
+								timeout    : 8000,
+								/* dataType: 'jsonp', */
+								dataType   : "xml",
+								/* data    : $('#loginform').serialize(), */
+								/* data    : "{email:'"+$('#email').val()+"', password:'"+$('#password').val()+"'}", */
+								data       : soapHelloWorld,
+								processData: false,
+								contentType: "application/soap+xml; charset=utf-8",
+								beforeSend : function(f) {
+												$.mobile.showPageLoadingMsg("b", "Identification en cours...", false); 
+												/* f.setRequestHeader("Content-Type", "text/xml; charset=utf-8");
+												f.setRequestHeader("SOAPAction", "http://taxis-bleus.org/ObtenirAliasPayboxUtilisateurMobilePhone"); */
+												},
+								complete   : function() { $.mobile.hidePageLoadingMsg(); },
+								success    : function(data) {
+												alert("Logged in");
 												$('#BtnLogIn').show();
-												}
+												/* $.mobile.changePage('#dialogPage', {transition: "slideup"});
+												return true; */	
+												},
+								error      : function(xhr, textStatus, thrownError) {
+												if (textStatus=="timeout") { 
+													alert("Impossible de se connecter. Vérifier votre connexion internet."); //Handle the timeout
+													}
+												else {
+													alert(textStatus);
+													if (xhr.responseText) { alert(xhr.responseText); }
+													if (thrownError) { alert(thrownError); }
+													}
+												$('#BtnLogIn').show(); 
 											}
 								});
 						}
 					catch(err) {
-								/* $.mobile.loading('hide'); */
 								$.mobile.hidePageLoadingMsg();
 								/* $('#LoginWait').hide(); */
 								alert("Impossible de joindre le serveur. Vérifier votre connexion internet.");
@@ -148,8 +202,7 @@
 							   }
 					return false;
 					});
-			
-			app.initialize();
+					
 
         </script>
     </body>
