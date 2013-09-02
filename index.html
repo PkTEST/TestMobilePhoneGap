@@ -89,18 +89,37 @@
 			/* $('#LoginWait').hide(); */
 			app.initialize();
 			
-			function WS_callback(r, soapResponse)
+			function WS_callback(e, soapResponse)
 				{
 				$.mobile.hidePageLoadingMsg();
-				alert("WS_callback_ok");
-			    if (soapResponse.xml) alert(soapResponse.xml); // IE
-			   else // MOZ
-			 		alert((new XMLSerializer()).serializeToString(soapResponse)); //print SOAP Response
+				alert("WS_callback");
+				
+				if (e) {
+				       if (e.constructor.toString().indexOf("function Error()") != -1)
+							{
+							// alert("An error has occured!\r\n\r\n" + e.description + "\r\n\r\n[Error code: " + e.number + "]");
+							if (e.number == 408)	// modification spécifique pour le time-out
+								{
+								alert("Impossible de joindre le serveur.\nMerci de vérifier votre connexion au réseau mobile data/internet");
+								$('#BtnLogIn').show();
+								return false;
+								}
+							alert(e);
+							}
+					   else 
+					       alert(e);
+					   }
+			    
+				if (soapResponse.xml) alert(soapResponse.xml); // IE
+					else // MOZ
+						alert((new XMLSerializer()).serializeToString(soapResponse)); //print SOAP Response
+						
 				//print Object result
 				/* alert("Author : "+r.Author+"\nSOA_For_Virtuemart_Version : "+r.SOA_For_Virtuemart_Version+
 								"\nVirtuemart_Version : "+r.Virtuemart_Version+"\nDatabase_Version : "+r.Database_Version);
 				*/
-				}
+				};
+				
 				
 			$('#BtnLogIn').click(function(e) {
 					e.preventDefault();
@@ -108,8 +127,8 @@
 					var password    = $('#password').val();
 					if (!identifiant) { alert("Veuillez saisir votre identifiant");  return false; }
 					if (!password)    { alert("Veuillez saisir votre mot de passe"); return false; }
-					
-					/* var soapHelloWorld = '<?xml version="1.0" encoding="utf-8"?> \
+					/*
+					var soapHelloWorld = '<?xml version="1.0" encoding="utf-8"?> \
 										 <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"> \
 											<soap:Body> \
 												<ObtenirAliasPayboxUtilisateurMobilePhone xmlns="http://taxis-bleus.org/"> \
@@ -119,7 +138,7 @@
 											</soap:Body> \
 										 </soap:Envelope>';
 					*/
-										 
+
 					var soapHelloWorld = '<?xml version="1.0" encoding="utf-8"?> \
 										 <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope"> \
 											<soap12:Body> \
@@ -130,28 +149,31 @@
 											</soap12:Body> \
 										 </soap12:Envelope>';
 					
+					
 					$('#BtnLogIn').hide();
 					
 					/* alert("heu ! on fait comment maintenant avec ces foutus WebService en XML!"); */
 					try {
-						var urlWS_LTB = "http://81.255.62.115/TaxisBleusTestWS/Nokia/taxisBleusWebServices.asmx";
+						var urlWS_LTB = "http://81.255.62.115/TaxisBleusTestWS/Nokia/taxisBleusWebServices.asmx?wsdl";
 						/* var urlWS_LTB = "http://192.168.250.3/TaxisBleusTestWS/Nokia/taxisBleusWebServices.asmx"; */
 						var WSParametre = new SOAPClientParameters();
 						
-						
+						urlWS_LTB = "http://81.255.62.115/hhh_TaxisBleusTestWS/Nokia/taxisBleusWebServices.asmx";
 						WSParametre.add('IdtUtilisateur', '130');
 						WSParametre.add('AdresseEmail',   'toto@free.fr');
 						$.mobile.showPageLoadingMsg("b", "Identification en cours...", false); 
 						var rep = SOAPClient.invoke(urlWS_LTB, "ObtenirAliasPayboxUtilisateurMobilePhone", WSParametre, true, WS_callback);
+						return true;
 						
 						/*
 						urlWS_LTB = "http://www.virtuemart-datamanager.com/administrator/components/com_vm_soa/services/VM_UsersWSDL.php";
 						WSParametre.add('login', 'admin');
 						WSParametre.add('password', 'biloute');
 						var rep = SOAPClient.invoke(urlWS_LTB, "GetVersions", WSParametre, true, WS_callback);
+						return true;
 						*/
 						
-						return true;
+						
 					
 					/* $('#LoginWait').show(200); */
 						/* $.mobile.loading('show', {text: "Identification en cours..." }); */
@@ -169,10 +191,11 @@
 								data       : soapHelloWorld,
 								processData: false,
 								contentType: "application/soap+xml; charset=utf-8",
+								//contentType: "text/xml; charset=utf-8",
 								beforeSend : function(f) {
 												$.mobile.showPageLoadingMsg("b", "Identification en cours...", false); 
-												/* f.setRequestHeader("Content-Type", "text/xml; charset=utf-8");
-												f.setRequestHeader("SOAPAction", "http://taxis-bleus.org/ObtenirAliasPayboxUtilisateurMobilePhone"); */
+												// f.setRequestHeader("Content-Type", "text/xml; charset=utf-8");
+												// f.setRequestHeader("SOAPAction", "http://taxis-bleus.org/ObtenirAliasPayboxUtilisateurMobilePhone");
 												},
 								complete   : function() { $.mobile.hidePageLoadingMsg(); },
 								success    : function(data) {

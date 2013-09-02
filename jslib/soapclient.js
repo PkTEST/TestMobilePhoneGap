@@ -140,7 +140,19 @@ SOAPClient._loadWsdl = function(url, method, parameters, async, callback)
 		{
 			if(xmlHttp.readyState == 4)
 				SOAPClient._onLoadWsdl(url, method, parameters, async, callback, xmlHttp);
-		}
+		};
+		
+		xmlHttp.timeout = 1000;
+		xmlHttp.ontimeout = function()
+		{
+			//alert("timeout");
+			//throw new Error("Your browser does not support XmlHttp objects");
+			SOAPClient_cacheWsdl = new Array();	// nettoyage du cache.
+			var o = new Error(408, "timeout");
+			var xml;
+			callback(o, xml);
+		};
+		
 	}
 	xmlHttp.send(null);
 	if (!async)
@@ -181,11 +193,24 @@ SOAPClient._sendSoapRequest = function(url, method, parameters, async, callback,
 	xmlHttp.setRequestHeader("Content-Type", "text/xml; charset=utf-8");
 	if(async) 
 	{
+		
+			
 		xmlHttp.onreadystatechange = function() 
 		{
 			if(xmlHttp.readyState == 4)
 				SOAPClient._onSendSoapRequest(method, async, callback, wsdl, xmlHttp);
-		}
+		};
+		/*
+		xmlHttp.timeout = 1000;
+		xmlHttp.ontimeout = function()
+		{
+			//alert("timeout");
+			//throw new Error("Your browser does not support XmlHttp objects");
+			var o = new Error(408, "timeout");
+			var xml;
+			callback(o, xml);
+		};
+		*/
 	}
 	xmlHttp.send(sr);
 	if (!async)
@@ -407,3 +432,4 @@ SOAPClient._toBase64 = function(input)
 
 	return output;
 }
+
